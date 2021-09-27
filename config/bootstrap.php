@@ -19,6 +19,8 @@ declare(strict_types=1);
  * Configure paths required to find CakePHP + general filepath constants
  */
 require __DIR__ . DIRECTORY_SEPARATOR . 'paths.php';
+require __DIR__ . DIRECTORY_SEPARATOR . 'func.php';
+
 
 /*
  * Bootstrap CakePHP.
@@ -40,6 +42,10 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Error\ConsoleErrorHandler;
 use Cake\Error\ErrorHandler;
 use Cake\Http\ServerRequest;
+use Cake\I18n\Date;
+use Cake\I18n\FrozenDate;
+use Cake\I18n\FrozenTime;
+use Cake\I18n\Time;
 use Cake\Log\Log;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
@@ -208,6 +214,16 @@ ServerRequest::addDetector('tablet', function ($request) {
 
 // There is no time-specific type in Cake
 TypeFactory::map('time', StringType::class);
+
+Time::setJsonEncodeFormat('yyyy-MM-dd HH:mm:ss');  // For any mutable DateTime
+FrozenTime::setJsonEncodeFormat('yyyy-MM-dd HH:mm:ss');  // For any immutable DateTime
+Date::setJsonEncodeFormat('yyyy-MM-dd');  // For any mutable Date
+FrozenDate::setJsonEncodeFormat('yyyy-MM-dd');  // For any immutable Date
+
+Time::setToStringFormat('yyyy-MM-dd HH:mm:ss'); // For any mutable DateTime
+FrozenTime::setToStringFormat('yyyy-MM-dd HH:mm:ss'); // For any immutable DateTime
+Date::setToStringFormat('yyyy-MM-dd'); // For any mutable Date
+FrozenDate::setToStringFormat('yyyy-MM-dd'); // For any immutable Date
 
 /*
  * Custom Inflector rules, can be set to correctly pluralize or singularize

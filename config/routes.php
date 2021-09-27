@@ -44,6 +44,10 @@ use Cake\Routing\RouteBuilder;
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
 
+$routes->scope('/admin', ['plugin' => 'Admin'], function (RouteBuilder $builder) {
+    $builder->connect('/', ['controller' => 'Home', 'action' => 'index', 'plugin' => 'Admin']);
+});
+
 $routes->scope('/', function (RouteBuilder $builder) {
     /*
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
@@ -80,10 +84,10 @@ $routes->scope('/', function (RouteBuilder $builder) {
  * ```
  * $routes->scope('/api', function (RouteBuilder $builder) {
  *     // No $builder->applyMiddleware() here.
- *     
+ *
  *     // Parse specified extensions from URLs
  *     // $builder->setExtensions(['json', 'xml']);
- *     
+ *
  *     // Connect API actions here.
  * });
  * ```

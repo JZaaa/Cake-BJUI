@@ -1,0 +1,122 @@
+{#
+/**
+ * Controller bake template file
+ *
+ * Allows templating of Controllers generated from bake.
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @since         2.0.0
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
+#}
+<?php
+declare(strict_types=1);
+
+namespace {{ namespace }}\Controller{{ prefix }};
+
+use {{ namespace }}\Controller\AppController;
+use Cake\ORM\TableRegistry;
+use App\Model\Table\{{ name }}Table;
+
+/**
+ * {{ name }} Controller
+ *
+ * @property {{ name }}Table ${{ name }}
+{%- if 'index' in actions %}
+
+ * @method \App\Model\Entity\{{ entityClassName }}[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+{% endif %}
+ */
+class {{ name }}Controller extends AppController
+{
+
+    protected ${{ name }};
+
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->{{ name }} = TableRegistry::getTableLocator()->get('{{ name }}');
+    }
+
+
+    public function index()
+    {
+        $conditions = [];
+
+        $query = $this->{{ name }}->find()
+            ->where($conditions);
+
+        $data = $this->paginate($query);
+
+        $this->set(compact('data'));
+
+    }
+
+    public function add()
+    {
+        if ($this->request->is('post')) {
+
+            $newData = $this->request->getData();
+
+            $data = $this->{{ name }}->newEmptyEntity();
+
+            $data = $this->{{ name }}->patchEntity($data, $newData);
+
+            if ($this->{{ name }}->save($data)) {
+                return $this->jump(200);
+            }
+
+            return $this->jump(300);
+        }
+
+    }
+
+    public function edit($id = null)
+    {
+        $data = $this->{{ name }}->get($id);
+
+        if ($this->request->is('post')) {
+
+            $newData = $this->request->getData();
+            $data = $this->{{ name }}->patchEntity($data, $newData);
+
+            if ($this->{{ name }}->save($data)) {
+                return $this->jump(200);
+            }
+
+            return $this->jump(300);
+        }
+
+        $this->set(compact('data'));
+
+    }
+
+
+    public function delete($id = null)
+    {
+
+        if ($this->request->is('post')) {
+            $data = $this->{{ name }}->get($id);
+
+            if ($this->{{ name }}->delete($data)) {
+                return $this->jump([
+                    'code' => 200,
+                    'closeCurrent' => false
+                ]);
+            }
+         }
+
+        return $this->jump(300);
+
+    }
+
+
+}

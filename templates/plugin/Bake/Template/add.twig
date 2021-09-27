@@ -1,0 +1,45 @@
+{% set fields = Bake.filterFields(fields, schema, modelObject, indexColumns, ['binary', 'text']) %}
+<div class="bjui-pageContent bj-page-wrapper-content">
+    <form
+        action="<?php echo $this->Url->build(['plugin' => {% if plugin %}'{{ plugin }}'{% else %}null{% endif %}, 'controller' => '{{ modelObject.getAlias() }}', 'action' => 'add'])?>"
+        class="bj-form bj-form-label-w110"
+        data-toggle="validate"
+        data-reloadNavtab="true"
+    >
+{% for field in fields %}
+{% if field not in primaryKey %}
+{%- if field not in ['created', 'modified', 'updated'] %}
+{%- set fieldData = Bake.columnData(field, schema) %}
+{%- if fieldData.null %}
+
+        <div class="bj-form-item">
+            <label class="bj-form-item-label">{{ field }}：</label>
+            <div class="bj-form-item-content">
+                <input type="text" name="{{ field }}" value="">
+            </div>
+        </div>
+{% else %}
+
+        <div class="bj-form-item">
+            <label class="bj-form-item-label is-required">{{ field }}：</label>
+            <div class="bj-form-item-content">
+                <input type="text" name="{{ field }}" value="" data-rule="required">
+            </div>
+        </div>
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}
+
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li>
+            <button type="button" class="btn-close btn-no">关闭</button>
+        </li>
+        <li>
+            <button type="submit" class="btn-blue">保存</button>
+        </li>
+    </ul>
+</div>

@@ -50,4 +50,17 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
     }
+
+    /**
+     * @param array $data
+     * @return \Cake\Http\Response|null
+     */
+    public function apiResponse(array $data = []): ?\Cake\Http\Response
+    {
+        $response = $this->response;
+
+        return $response->withCharset('UTF-8')
+            ->withType('application/json')
+            ->withStringBody(arrayToJson($data));
+    }
 }

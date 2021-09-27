@@ -1,0 +1,68 @@
+{% set fields = Bake.filterFields(fields, schema, modelObject) %}
+<div class="bjui-pageContent bj-page-wrapper-content">
+    <form
+        action="<?php echo $this->Url->build(['plugin' => {% if plugin %}'{{ plugin }}'{% else %}null{% endif %}, 'controller' => '{{ modelObject.getAlias() }}', 'action' => 'edit', $data['id']])?>"
+        class="bj-form bj-form-label-w110"
+        data-toggle="validate"
+        data-reloadNavtab="true"
+    >
+        {{- "\n" }}
+{% for field in fields %}
+{% if field not in primaryKey %}
+{%- if keyFields[field] %}
+{%- set fieldData = Bake.columnData(field, schema) %}
+{%- if fieldData.null %}
+        <div class="bj-form-item">
+            <label class="bj-form-item-label">{{ field }}：</label>
+            <div class="bj-form-item-content">
+                <input type="text" name="{{ field }}" value="<?php echo $data['{{ field }}']?>">
+            </div>
+        </div>
+{{- "\n" }}
+
+{%- else %}
+        <div class="bj-form-item">
+            <label class="bj-form-item-label is-required">{{ field }}：</label>
+            <div class="bj-form-item-content">
+                <input type="text" name="{{ field }}" value="<?php echo $data['{{ field }}']?>" data-rule="required">
+            </div>
+        </div>
+{{- "\n" }}
+
+{%- endif %}
+{%- elseif field not in ['created', 'modified', 'updated'] %}
+{%- set fieldData = Bake.columnData(field, schema) %}
+{%- if fieldData.null %}
+        <div class="bj-form-item">
+            <label class="bj-form-item-label">{{ field }}：</label>
+            <div class="bj-form-item-content">
+                <input type="text" name="{{ field }}" value="<?php echo $data['{{ field }}']?>">
+            </div>
+        </div>
+{{- "\n" }}
+
+{%- else %}
+        <div class="bj-form-item">
+            <label class="bj-form-item-label is-required">{{ field }}：</label>
+            <div class="bj-form-item-content">
+                <input type="text" name="{{ field }}" value="<?php echo $data['{{ field }}']?>" data-rule="required">
+            </div>
+        </div>
+{{- "\n" }}
+{%- endif %}
+{%- endif %}
+{%- endif %}
+{%- endfor %}
+
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li>
+            <button type="button" class="btn-close btn-no">关闭</button>
+        </li>
+        <li>
+            <button type="submit" class="btn-blue">保存</button>
+        </li>
+    </ul>
+</div>
