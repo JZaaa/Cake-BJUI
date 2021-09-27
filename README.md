@@ -1,8 +1,11 @@
-# CakePHP4 + BJUI NEXT 简单框架
+# CakePHP4 + BJUI NEXT 示例
 
-- [BJUI NEXT](https://github.com/JZaaa/BJUI/tree/next-dev)
-- [CakePHP](https://github.com/cakephp/cakephp)
+## 简介
+本项目为CakePHP 与 BJUI 搭建的简单示例
 
+
+- [BJUI NEXT](https://github.com/JZaaa/BJUI/tree/next-dev) 版本：BJUI NEXT
+- [CakePHP](https://github.com/cakephp/cakephp) 版本：CakePHP4
 ## 使用
 
 - 复制`config/app_local.example.php`并重命名为`app_local.php`到同级目录下，修改相关配置项
