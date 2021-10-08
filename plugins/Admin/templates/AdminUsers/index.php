@@ -1,4 +1,4 @@
-<div class="bjui-pageHeader">
+<div class="bjui-pageHeader hide">
     <form
         id="pagerForm"
         data-toggle="ajaxsearch"
@@ -8,14 +8,14 @@
         <input type="hidden" name="pageSize" value="<?php echo $numPerPage ?>">
         <input type="hidden" name="pageCurrent" value="1">
     </form>
-    <div class="datagrid-toolbar">
+</div>
+
+<div class="bjui-pageContent bg-white bj-page-wrapper-content bj-p-10">
+    <div class="bj-m-b-10">
         <div class="btn-group" role="group">
             <a href="<?php echo $this->Url->build(['plugin' => 'Admin', 'controller' => 'AdminUsers', 'action' => 'add'])?>" class="btn btn-green" data-toggle="dialog" data-width="600" data-height="350" data-mask="true" data-icon="plus">添加</a>
         </div>
     </div>
-</div>
-
-<div class="bjui-pageContent tableContent">
     <table class="table table-bordered table-hover table-striped table-top text-center" data-width="100%">
         <thead>
             <tr>
