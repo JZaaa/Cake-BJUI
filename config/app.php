@@ -182,7 +182,7 @@ return [
     'Error' => [
         'errorLevel' => E_ALL,
         'exceptionRenderer' => ExceptionRenderer::class,
-        'skipLog' => [],
+        'skipLog' => ['Cake\Http\Exception\NotFoundException', 'Cake\Http\Exception\UnauthorizedException'],
         'log' => true,
         'trace' => true,
         'ignoredDeprecationPaths' => [],
